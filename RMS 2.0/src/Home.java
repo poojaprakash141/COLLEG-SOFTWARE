@@ -15,10 +15,17 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Year;
 import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
@@ -29,23 +36,25 @@ import javax.swing.JMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class Home {
 
-	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
+	public JFrame frame;
+	public JTextField textField;
+	public JTextField textField_1;
+	public JTextField textField_2;
+	public JTextField textField_3;
+	public JTextField textField_4;
+	public JTextField textField_5;
+	public JTextField textField_8;
+	public JTextField textField_9;
+	public JTextField textField_6;
+	public JTextField textField_7;
+	public JTextField textField_10;
+	public JTextField textField_11;
+	public JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
 	private JTextField textField_15;
@@ -67,6 +76,23 @@ public class Home {
 	private JTextField textField_32;
 	private JTextField textField_33;
 	private JTextField textField_29;
+	private JTextField textField_34;
+	private JTextField textField_35;
+	private JTextField textField_36;
+	private JTextField textField_37;
+	private JTextField textField_38;
+	private JTextField textField_39;
+	private JTextField textField_40;
+	private JTextField textField_41;
+	private JTextField textField_42;
+	private JTextField textField_43;
+	private JTextField textField_46;
+	private JTextField textField_47;
+	private JTextField textField_45;
+	private JTextField textField_49;
+	private JTextField textField_44;
+	private JTextField textField_50;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -92,15 +118,36 @@ public class Home {
 
 	/**
 	 * Create the application.
+	 * @throws SQLException 
 	 */
-	public Home() {
+	public Home() throws SQLException {
 		initialize();
+		
+		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws SQLException 
 	 */
-	private void initialize() {
+	private void initialize() throws SQLException {
+		// To calculate the current year 
+		Year currentYear = Year.now();
+		
+		/* JDBC connection & query
+		String url = "jdbc:mysql://85.10.205.173:3306/zetatech1";
+		String userName = "zetarms1";
+		String passWord = "zeta87654321";
+		
+		 String query = "select *from student_details_main where Reg_ID = 1";
+    	 Connection con = DriverManager.getConnection(url,userName,passWord);
+     	 Statement st = con.createStatement();
+         ResultSet rs = st.executeQuery(query);
+         while(rs.next()) {
+        	 System.out.print(rs.getString(2));
+         }   
+         */
+		
 		frame = new JFrame();
      	frame.setUndecorated(true);
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
@@ -168,6 +215,7 @@ public class Home {
 		layeredPane.add(HomeScreen, "name_527794953976099");
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBorder(new LineBorder(new Color(192, 192, 192)));
 		
 		JPanel panel_8_1 = new JPanel();
 		panel_8_1.setBackground(new Color(255, 255, 255));
@@ -202,10 +250,10 @@ public class Home {
 		
 		JLabel lblNewLabel_9 = new JLabel("");
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_9.setIcon(new ImageIcon("D:\\Apps\\Eclipse\\Java programs\\RMS 2.0\\images\\new_logo-removebg-preview.png"));
+		lblNewLabel_9.setIcon(new ImageIcon(Home.class.getResource("/images/new_logo-removebg-preview.png")));
 		
 		JLabel lblNewLabel_9_1 = new JLabel("");
-		lblNewLabel_9_1.setIcon(new ImageIcon("C:\\Users\\VEKGADESH\\Documents\\Allegorithmic\\grp-removebg-preview.png"));
+		lblNewLabel_9_1.setIcon(new ImageIcon(Home.class.getResource("/images/grp-removebg-preview.png")));
 		lblNewLabel_9_1.setHorizontalAlignment(SwingConstants.LEFT);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
 		gl_panel_8.setHorizontalGroup(
@@ -253,6 +301,389 @@ public class Home {
 		JPanel AddStudent = new JPanel();
 		AddStudent.setBackground(new Color(255, 255, 255));
 		layeredPane.add(AddStudent, "name_527835372818400");
+		
+		JPanel panel_11 = new JPanel();
+		panel_11.setLayout(null);
+		panel_11.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
+		panel_11.setBackground(Color.WHITE);
+		
+		JComboBox comboBox_4 = new JComboBox();
+		comboBox_4.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		comboBox_4.setBounds(10, 57, 163, 27);
+		panel_11.add(comboBox_4);
+		
+		JComboBox comboBox_1_2 = new JComboBox();
+		comboBox_1_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		comboBox_1_2.setBounds(199, 57, 163, 27);
+		panel_11.add(comboBox_1_2);
+		
+		JLabel lblNewLabel_2_3 = new JLabel("Branch");
+		lblNewLabel_2_3.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_3.setBounds(10, 25, 91, 27);
+		panel_11.add(lblNewLabel_2_3);
+		
+		JLabel lblNewLabel_2_1_1 = new JLabel("Stream");
+		lblNewLabel_2_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_1_1.setBounds(10, 94, 91, 27);
+		panel_11.add(lblNewLabel_2_1_1);
+		
+		JComboBox comboBox_2_1 = new JComboBox();
+		comboBox_2_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		comboBox_2_1.setBounds(10, 126, 163, 27);
+		panel_11.add(comboBox_2_1);
+		
+		JLabel lblNewLabel_2_2_3 = new JLabel("Semester");
+		lblNewLabel_2_2_3.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_3.setBounds(199, 25, 91, 27);
+		panel_11.add(lblNewLabel_2_2_3);
+		
+		JLabel lblNewLabel_2_2_1_3 = new JLabel("Year");
+		lblNewLabel_2_2_1_3.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_3.setBounds(199, 94, 91, 27);
+		panel_11.add(lblNewLabel_2_2_1_3);
+		
+		JComboBox comboBox_1_1_1 = new JComboBox();
+		comboBox_1_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		comboBox_1_1_1.setBounds(199, 126, 163, 27);
+		panel_11.add(comboBox_1_1_1);
+		
+		JLabel lblNewLabel_3_3 = new JLabel("Select The Details");
+		lblNewLabel_3_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_3.setForeground(Color.BLACK);
+		lblNewLabel_3_3.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
+		lblNewLabel_3_3.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel_3_3.setBounds(10, 0, 352, 27);
+		panel_11.add(lblNewLabel_3_3);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
+		panel_1_1.setBackground(new Color(255, 255, 255));
+		
+		JLabel lblNewLabel_3_1_2 = new JLabel("Student Details Preview");
+		lblNewLabel_3_1_2.setBounds(0, 0, 371, 27);
+		lblNewLabel_3_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1_2.setForeground(Color.BLACK);
+		lblNewLabel_3_1_2.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
+		lblNewLabel_3_1_2.setBackground(Color.LIGHT_GRAY);
+		
+		textField_38 = new JTextField();
+		textField_38.setBounds(109, 149, 248, 31);
+		textField_38.setColumns(10);
+		textField_38.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		
+		textField_39 = new JTextField();
+		textField_39.setBounds(109, 111, 248, 32);
+		textField_39.setColumns(10);
+		textField_39.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		
+		textField_40 = new JTextField();
+		textField_40.setBounds(109, 227, 248, 31);
+		textField_40.setColumns(10);
+		textField_40.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		
+		textField_41 = new JTextField();
+		textField_41.setBounds(109, 189, 248, 32);
+		textField_41.setColumns(10);
+		textField_41.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		
+		textField_42 = new JTextField();
+		textField_42.setBounds(109, 303, 248, 31);
+		textField_42.setColumns(10);
+		textField_42.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		
+		textField_43 = new JTextField();
+		textField_43.setBounds(109, 265, 248, 32);
+		textField_43.setColumns(10);
+		textField_43.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		
+		JLabel lblNewLabel_2_3_1 = new JLabel("Branch");
+		lblNewLabel_2_3_1.setBounds(0, 186, 101, 32);
+		lblNewLabel_2_3_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_2_3_1_1 = new JLabel("Year");
+		lblNewLabel_2_3_1_1.setBounds(0, 227, 99, 32);
+		lblNewLabel_2_3_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_2_3_1_2 = new JLabel("Email");
+		lblNewLabel_2_3_1_2.setBounds(0, 265, 99, 32);
+		lblNewLabel_2_3_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_2_3_1_3 = new JLabel("Date of Birth");
+		lblNewLabel_2_3_1_3.setBounds(0, 303, 99, 32);
+		lblNewLabel_2_3_1_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_3.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_2_3_1_4 = new JLabel("Name");
+		lblNewLabel_2_3_1_4.setBounds(7, 148, 94, 32);
+		lblNewLabel_2_3_1_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_4.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_2_3_1_5 = new JLabel("Register ID");
+		lblNewLabel_2_3_1_5.setBounds(7, 110, 94, 32);
+		lblNewLabel_2_3_1_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_5.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JPanel panel_11_1 = new JPanel();
+		panel_11_1.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
+		panel_11_1.setBackground(new Color(240, 240, 240));
+		
+		JLabel lblNewLabel_2_3_1_5_1_3 = new JLabel("Register ID");
+		lblNewLabel_2_3_1_5_1_3.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_3_1_5_1_3.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		textField_45 = new JTextField();
+		textField_45.setColumns(10);
+		textField_45.setBorder(new LineBorder(new Color(192, 192, 192)));
+		
+		JLabel lblNewLabel_2_3_1_5_1_5 = new JLabel("DOB");
+		lblNewLabel_2_3_1_5_1_5.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_3_1_5_1_5.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		textField_49 = new JTextField();
+		textField_49.setColumns(10);
+		textField_49.setBorder(new LineBorder(new Color(192, 192, 192)));
+		
+		JLabel lblNewLabel_3_3_1 = new JLabel("Student Regitration From");
+		lblNewLabel_3_3_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_3_3_1.setForeground(Color.BLACK);
+		lblNewLabel_3_3_1.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
+		lblNewLabel_3_3_1.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblNewLabel_2_3_1_5_1_3_1 = new JLabel("Name");
+		lblNewLabel_2_3_1_5_1_3_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_3_1_5_1_3_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		textField_44 = new JTextField();
+		textField_44.setColumns(10);
+		textField_44.setBorder(new LineBorder(new Color(192, 192, 192)));
+		
+		JLabel lblNewLabel_2_3_1_5_1_3_2 = new JLabel("Email ID");
+		lblNewLabel_2_3_1_5_1_3_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_3_1_5_1_3_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		textField_50 = new JTextField();
+		textField_50.setColumns(10);
+		textField_50.setBorder(new LineBorder(new Color(192, 192, 192)));
+		
+		JLabel lblNewLabel_2_3_1_5_1_3_1_1 = new JLabel("Batch");
+		lblNewLabel_2_3_1_5_1_3_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_3_1_5_1_3_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		panel_1_1.setLayout(null);
+		panel_1_1.add(lblNewLabel_3_1_2);
+		panel_1_1.add(lblNewLabel_2_3_1_4);
+		panel_1_1.add(textField_38);
+		panel_1_1.add(lblNewLabel_2_3_1_5);
+		panel_1_1.add(textField_39);
+		panel_1_1.add(lblNewLabel_2_3_1);
+		panel_1_1.add(lblNewLabel_2_3_1_1);
+		panel_1_1.add(textField_40);
+		panel_1_1.add(textField_41);
+		panel_1_1.add(lblNewLabel_2_3_1_2);
+		panel_1_1.add(lblNewLabel_2_3_1_3);
+		panel_1_1.add(textField_43);
+		panel_1_1.add(textField_42);
+		
+		JButton btnNewButton_2_1_2_2 = new JButton("Save Details");
+		btnNewButton_2_1_2_2.setBounds(235, 345, 122, 32);
+		panel_1_1.add(btnNewButton_2_1_2_2);
+		btnNewButton_2_1_2_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JButton btnNewButton_2_1_1_1 = new JButton("Preview");
+		btnNewButton_2_1_1_1.setBounds(109, 345, 118, 32);
+		panel_1_1.add(btnNewButton_2_1_1_1);
+		btnNewButton_2_1_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_11 = new JLabel("Photo");
+		lblNewLabel_11.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_11.setBounds(10, 29, 94, 71);
+		panel_1_1.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_2_3_1_5_1_1 = new JLabel("Register ID");
+		lblNewLabel_2_3_1_5_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_5_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_3_1_5_1_1.setBounds(109, 72, 94, 32);
+		panel_1_1.add(lblNewLabel_2_3_1_5_1_1);
+		
+		textField_46 = new JTextField();
+		textField_46.setColumns(10);
+		textField_46.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		textField_46.setBounds(211, 73, 146, 32);
+		panel_1_1.add(textField_46);
+		
+		JLabel lblNewLabel_2_3_1_5_1_2 = new JLabel("Batch");
+		lblNewLabel_2_3_1_5_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_3_1_5_1_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_3_1_5_1_2.setBounds(109, 37, 94, 32);
+		panel_1_1.add(lblNewLabel_2_3_1_5_1_2);
+		
+		textField_47 = new JTextField();
+		textField_47.setColumns(10);
+		textField_47.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		textField_47.setBounds(211, 38, 146, 32);
+		panel_1_1.add(textField_47);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		table = new JTable();
+		table.setRowHeight(24);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"Register ID", "Name", "Year", "Branch", "Email"
+			}
+		));
+		scrollPane.setViewportView(table);
+		
+		JComboBox comboBox_1_2_1 = new JComboBox();
+		comboBox_1_2_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JButton btnNewButton_2_1_2_2_1 = new JButton("Save");
+		btnNewButton_2_1_2_2_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		
+		JButton btnNewButton_2_1_1_1_1 = new JButton("Clear");
+		btnNewButton_2_1_1_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		GroupLayout gl_panel_11_1 = new GroupLayout(panel_11_1);
+		gl_panel_11_1.setHorizontalGroup(
+			gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_11_1.createSequentialGroup()
+					.addGap(27)
+					.addGroup(gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addComponent(textField_45, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+							.addGap(8)
+							.addComponent(textField_44, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+							.addGap(8)
+							.addComponent(textField_49, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+							.addGap(11))
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addGroup(gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_3_3_1, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_11_1.createSequentialGroup()
+									.addComponent(lblNewLabel_2_3_1_5_1_3, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+									.addGap(193))
+								.addGroup(Alignment.TRAILING, gl_panel_11_1.createSequentialGroup()
+									.addGap(193)
+									.addComponent(lblNewLabel_2_3_1_5_1_3_1, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGap(8)
+							.addComponent(lblNewLabel_2_3_1_5_1_5, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+							.addGap(12)))
+					.addGroup(gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addComponent(lblNewLabel_2_3_1_5_1_3_2, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+							.addGap(8)
+							.addComponent(lblNewLabel_2_3_1_5_1_3_1_1, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addComponent(textField_50, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBox_1_2_1, 0, 99, Short.MAX_VALUE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton_2_1_2_2_1, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton_2_1_1_1_1, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		gl_panel_11_1.setVerticalGroup(
+			gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_11_1.createSequentialGroup()
+					.addGroup(gl_panel_11_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_3_3_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addGap(37)
+							.addComponent(lblNewLabel_2_3_1_5_1_3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addGap(37)
+							.addComponent(lblNewLabel_2_3_1_5_1_5, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addGap(37)
+							.addGroup(gl_panel_11_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_2_3_1_5_1_3_1_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnNewButton_2_1_1_1_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel_11_1.createSequentialGroup()
+							.addGap(37)
+							.addComponent(lblNewLabel_2_3_1_5_1_3_2, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_11_1.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_11_1.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(textField_45, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+							.addComponent(textField_44, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+							.addComponent(textField_49, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+							.addComponent(textField_50, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+							.addComponent(btnNewButton_2_1_2_2_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox_1_2_1, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+					.addContainerGap(19, Short.MAX_VALUE))
+				.addGroup(gl_panel_11_1.createSequentialGroup()
+					.addGap(37)
+					.addComponent(lblNewLabel_2_3_1_5_1_3_1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		panel_11_1.setLayout(gl_panel_11_1);
+		GroupLayout gl_AddStudent = new GroupLayout(AddStudent);
+		gl_AddStudent.setHorizontalGroup(
+			gl_AddStudent.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_AddStudent.createSequentialGroup()
+					.addGroup(gl_AddStudent.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_1_1, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(gl_AddStudent.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_11_1, GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)))
+		);
+		gl_AddStudent.setVerticalGroup(
+			gl_AddStudent.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_AddStudent.createSequentialGroup()
+					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addGap(5)
+					.addComponent(panel_1_1, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+				.addGroup(gl_AddStudent.createSequentialGroup()
+					.addComponent(panel_11_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
+					.addComponent(scrollPane))
+		);
+		AddStudent.setLayout(gl_AddStudent);
 		
 		JPanel AddIATMark = new JPanel();
 		AddIATMark.setBackground(new Color(255, 255, 255));
@@ -641,30 +1072,11 @@ public class Home {
 					.addGap(16)
 					.addGroup(gl_panel_5_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_5_1.createSequentialGroup()
-							.addComponent(lblNewLabel_3_2_1, GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_panel_5_1.createSequentialGroup()
 							.addGroup(gl_panel_5_1.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_5_1.createSequentialGroup()
-									.addComponent(lblNewLabel_6_4, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-									.addGap(7)
-									.addComponent(lblNewLabel_6_1_3, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-									.addGap(40)
-									.addComponent(lblNewLabel_6_3_1, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-									.addGap(8)
-									.addComponent(lblNewLabel_6_1_2_1, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
-								.addGroup(gl_panel_5_1.createSequentialGroup()
-									.addComponent(textField_16, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-									.addGap(8)
-									.addComponent(textField_17, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-									.addGap(39)
-									.addComponent(textField_18, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-									.addGap(8)
-									.addComponent(textField_19, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
 								.addGroup(gl_panel_5_1.createSequentialGroup()
 									.addComponent(lblNewLabel_6_2_2, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
 									.addGap(7)
-									.addComponent(lblNewLabel_6_1_1_2, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+									.addComponent(lblNewLabel_6_1_1_2, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
 									.addGap(40)
 									.addComponent(lblNewLabel_6_3_2_2, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
 									.addGap(8)
@@ -674,13 +1086,13 @@ public class Home {
 									.addGap(8)
 									.addComponent(textField_21, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
 									.addGap(39)
-									.addComponent(textField_22, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+									.addComponent(textField_22, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
 									.addGap(8)
 									.addComponent(textField_23, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
 								.addGroup(gl_panel_5_1.createSequentialGroup()
 									.addComponent(lblNewLabel_6_2_1_1, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
 									.addGap(7)
-									.addComponent(lblNewLabel_6_1_1_1_1, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+									.addComponent(lblNewLabel_6_1_1_1_1, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
 									.addGap(40)
 									.addComponent(lblNewLabel_6_3_2_1_1, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
 									.addGap(8)
@@ -690,9 +1102,31 @@ public class Home {
 									.addGap(8)
 									.addComponent(textField_25, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
 									.addGap(39)
-									.addComponent(textField_26, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+									.addComponent(textField_26, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
 									.addGap(8)
 									.addComponent(textField_27, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)))
+							.addContainerGap())
+						.addGroup(gl_panel_5_1.createSequentialGroup()
+							.addComponent(lblNewLabel_3_2_1, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_panel_5_1.createSequentialGroup()
+							.addGroup(gl_panel_5_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_5_1.createSequentialGroup()
+									.addComponent(lblNewLabel_6_4, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+									.addGap(7)
+									.addComponent(lblNewLabel_6_1_3, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+									.addGap(40)
+									.addComponent(lblNewLabel_6_3_1, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+									.addGap(8)
+									.addComponent(lblNewLabel_6_1_2_1, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+								.addGroup(gl_panel_5_1.createSequentialGroup()
+									.addComponent(textField_16, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+									.addGap(8)
+									.addComponent(textField_17, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+									.addGap(39)
+									.addComponent(textField_18, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+									.addGap(8)
+									.addComponent(textField_19, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)))
 							.addGap(14))))
 		);
 		gl_panel_5_1.setVerticalGroup(
@@ -711,7 +1145,7 @@ public class Home {
 						.addComponent(textField_17, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_18, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_19, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-					.addGap(17)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_5_1.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_6_2_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_6_1_1_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
@@ -734,7 +1168,8 @@ public class Home {
 						.addComponent(textField_24, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_25, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_26, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_27, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(textField_27, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+					.addGap(28))
 		);
 		panel_5_1.setLayout(gl_panel_5_1);
 		
@@ -1002,12 +1437,12 @@ public class Home {
 		textField_13.setColumns(10);
 		textField_13.setBorder(new LineBorder(new Color(220, 220, 220)));
 		
-		JLabel lblNewLabel_6_3_2_1 = new JLabel("3");
+		JLabel lblNewLabel_6_3_2_1 = new JLabel("-");
 		lblNewLabel_6_3_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6_3_2_1.setFont(new Font("Segoe UI Variable", Font.BOLD, 14));
 		lblNewLabel_6_3_2_1.setBorder(new LineBorder(new Color(220, 220, 220), 1, true));
 		
-		JLabel lblNewLabel_6_1_2_2_1 = new JLabel("4");
+		JLabel lblNewLabel_6_1_2_2_1 = new JLabel("-");
 		lblNewLabel_6_1_2_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6_1_2_2_1.setFont(new Font("Segoe UI Variable", Font.BOLD, 14));
 		lblNewLabel_6_1_2_2_1.setBorder(new LineBorder(new Color(220, 220, 220), 1, true));
@@ -1137,6 +1572,86 @@ public class Home {
 		lblNewLabel_3_1_1.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel_3_1_1.setBounds(8, 0, 355, 27);
 		panel_3.add(lblNewLabel_3_1_1);
+		
+		JLabel lblNewLabel_2_2_1_1 = new JLabel("Day");
+		lblNewLabel_2_2_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_1.setBounds(12, 27, 46, 27);
+		panel_3.add(lblNewLabel_2_2_1_1);
+		
+		JLabel lblNewLabel_2_2_1_2 = new JLabel("IAT Number");
+		lblNewLabel_2_2_1_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_2.setBounds(200, 27, 91, 27);
+		panel_3.add(lblNewLabel_2_2_1_2);
+		
+		JComboBox comboBox_1_1_2 = new JComboBox();
+		comboBox_1_1_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		comboBox_1_1_2.setBounds(200, 59, 163, 27);
+		panel_3.add(comboBox_1_1_2);
+		
+		textField_34 = new JTextField();
+		textField_34.setColumns(10);
+		textField_34.setBorder(new LineBorder(new Color(220, 220, 220)));
+		textField_34.setBounds(63, 59, 50, 27);
+		panel_3.add(textField_34);
+		
+		JLabel lblNewLabel_2_2_1_1_1 = new JLabel("Month");
+		lblNewLabel_2_2_1_1_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_1_1.setBounds(66, 27, 47, 27);
+		panel_3.add(lblNewLabel_2_2_1_1_1);
+		
+		textField_35 = new JTextField();
+		textField_35.setColumns(10);
+		textField_35.setBorder(new LineBorder(new Color(220, 220, 220)));
+		textField_35.setBounds(8, 59, 50, 27);
+		panel_3.add(textField_35);
+		
+		JLabel lblNewLabel_2_2_1_1_2 = new JLabel("Year");
+		lblNewLabel_2_2_1_1_2.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_1_2.setBounds(121, 27, 50, 27);
+		panel_3.add(lblNewLabel_2_2_1_1_2);
+		
+		textField_36 = new JTextField();
+		textField_36.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_36.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		textField_36.setText(""+currentYear);
+		textField_36.setColumns(10);
+		textField_36.setBorder(new LineBorder(new Color(220, 220, 220)));
+		textField_36.setBounds(121, 59, 50, 27);
+		panel_3.add(textField_36);
+		
+		JLabel lblNewLabel_2_2_1_1_2_1 = new JLabel("Total Mark");
+		lblNewLabel_2_2_1_1_2_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_1_2_1.setBounds(121, 96, 91, 27);
+		panel_3.add(lblNewLabel_2_2_1_1_2_1);
+		
+		textField_37 = new JTextField();
+		textField_37.setText("00");
+		textField_37.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_37.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		textField_37.setColumns(10);
+		textField_37.setBorder(new LineBorder(new Color(220, 220, 220)));
+		textField_37.setBounds(121, 128, 91, 27);
+		panel_3.add(textField_37);
+		
+		JLabel lblNewLabel_2_2_1_2_1 = new JLabel("Regulation");
+		lblNewLabel_2_2_1_2_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		lblNewLabel_2_2_1_2_1.setBounds(8, 96, 97, 27);
+		panel_3.add(lblNewLabel_2_2_1_2_1);
+		
+		JComboBox comboBox_1_1_2_1 = new JComboBox();
+		comboBox_1_1_2_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		comboBox_1_1_2_1.setBounds(8, 128, 97, 27);
+		panel_3.add(comboBox_1_1_2_1);
+		
+		JButton btnNewButton_2_1_4_1 = new JButton("Save");
+		btnNewButton_2_1_4_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		btnNewButton_2_1_4_1.setBounds(220, 125, 70, 32);
+		panel_3.add(btnNewButton_2_1_4_1);
+		
+		JButton btnNewButton_2_1_3_1 = new JButton("Edit");
+		btnNewButton_2_1_3_1.setFont(new Font("Segoe UI Variable", Font.PLAIN, 14));
+		btnNewButton_2_1_3_1.setBounds(293, 125, 70, 32);
+		panel_3.add(btnNewButton_2_1_3_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Photo ");
 		lblNewLabel_4.setBorder(new LineBorder(new Color(192, 192, 192)));
@@ -1271,6 +1786,71 @@ public class Home {
 		JPanel StaffProfile = new JPanel();
 		layeredPane.add(StaffProfile, "name_527847128747900");
 		
+		JPanel Others = new JPanel();
+		Others.setBackground(new Color(255, 255, 255));
+		layeredPane.add(Others, "name_145826217317800");
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		panel_9.setLayout(null);
+		
+		JButton btnNewButton_2 = new JButton("Edit Subject ");
+		btnNewButton_2.setFont(new Font("Segoe UI Variable", Font.BOLD, 14));
+		btnNewButton_2.setBounds(8, 70, 204, 35);
+		panel_9.add(btnNewButton_2);
+		
+		JLayeredPane layeredPane_1 = new JLayeredPane();
+		layeredPane_1.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
+		GroupLayout gl_Others = new GroupLayout(Others);
+		gl_Others.setHorizontalGroup(
+			gl_Others.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Others.createSequentialGroup()
+					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 1108, Short.MAX_VALUE))
+		);
+		gl_Others.setVerticalGroup(
+			gl_Others.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel_9, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+				.addComponent(layeredPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+		);
+		layeredPane_1.setLayout(new CardLayout(0, 0));
+		
+		JPanel Subject = new JPanel();
+		Subject.setBackground(new Color(255, 255, 255));
+		layeredPane_1.add(Subject, "name_146620621948700");
+		Subject.setLayout(null);
+		
+		JPanel panel_12 = new JPanel();
+		layeredPane_1.add(panel_12, "name_146625297501300");
+		
+		JPanel panel_13 = new JPanel();
+		layeredPane_1.add(panel_13, "name_146632000753100");
+		
+		JPanel panel_10 = new JPanel();
+		panel_10.setBackground(new Color(0, 133, 255));
+		panel_10.setBounds(8, 10, 204, 35);
+		panel_9.add(panel_10);
+		panel_10.setLayout(null);
+		
+		JLabel lblNewLabel_10 = new JLabel("OPTIONS");
+		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_10.setForeground(new Color(255, 255, 255));
+		lblNewLabel_10.setBounds(25, 0, 158, 35);
+		panel_10.add(lblNewLabel_10);
+		lblNewLabel_10.setFont(new Font("Segoe UI Variable", Font.BOLD, 16));
+		
+		JButton btnNewButton_2_2 = new JButton("New button");
+		btnNewButton_2_2.setFont(new Font("Segoe UI Variable", Font.BOLD, 14));
+		btnNewButton_2_2.setBounds(8, 115, 204, 35);
+		panel_9.add(btnNewButton_2_2);
+		
+		JButton btnNewButton_2_3 = new JButton("New button");
+		btnNewButton_2_3.setFont(new Font("Segoe UI Variable", Font.BOLD, 14));
+		btnNewButton_2_3.setBounds(8, 160, 204, 35);
+		panel_9.add(btnNewButton_2_3);
+		Others.setLayout(gl_Others);
+		
 		JButton btnNewButton_1_1 = new JButton("HOME");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1364,7 +1944,7 @@ public class Home {
 		btnNewButton_1_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layeredPane.removeAll();
-				layeredPane.add(StaffProfile);
+				layeredPane.add(Others);
 				layeredPane.repaint();
 				layeredPane.revalidate();
 				
@@ -1407,7 +1987,7 @@ public class Home {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		Navbar.setLayout(gl_Navbar);
-		Year currentYear = Year.now();
+		
 		JLabel lblNewLabel_1 = new JLabel("© PPG Edu - "+ currentYear +" All Rights Reserved ");
 		lblNewLabel_1.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1425,23 +2005,6 @@ public class Home {
 		);
 		Footer.setLayout(gl_Footer);
 		frame.getContentPane().setLayout(groupLayout);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
 	}
 }
 
